@@ -1,0 +1,31 @@
+#include <stdio.h>
+typedef struct {
+    float area;
+} Square;
+typedef struct {
+    float length; 
+    float breadth; 
+} Rectangle;
+typedef struct {
+    Square square;
+    Rectangle rectangle;
+} Shape;
+void calculateSquareArea(Square *s, float side) {
+    s->area = side * side;
+}
+float calculateRectangleArea(Rectangle *r) {
+    return r->length * r->breadth;
+}
+int main() {
+    Shape shape; 
+    float side;
+    printf("Enter the side length of the square: ");
+    scanf("%f", &side);
+    calculateSquareArea(&shape.square, side);
+    printf("Enter the length and breadth of the rectangle:\n");
+    scanf("%f %f", &shape.rectangle.length, &shape.rectangle.breadth);
+    float rectangleArea = calculateRectangleArea(&shape.rectangle);
+    printf("Area of the square: %.2f\n", shape.square.area);
+    printf("Area of the rectangle: %.2f\n", rectangleArea);
+    return 0;
+}
