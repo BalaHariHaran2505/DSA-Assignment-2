@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+void printInventory(int *inventory, int size) {
+    printf("Current Inventory:\n");
+    for (int i = 0; i < size; i++) {
+        printf("Packet %d: %d\n", i + 1, inventory[i]);
+    }
+}
+
+int main() {
+    int initialSize = 10;
+    int *inventory = (int *)malloc(initialSize * sizeof(int));
+
+    if (inventory == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    printf("Initializing inventory with %d packets:\n", initialSize);
+    for (int i = 0; i < initialSize; i++) {
+        inventory[i] = i + 1; // Example values
+    }
+
+    printInventory(inventory, initialSize);
+
+    int newSize;
+    printf("Enter new size for the inventory: ");
+    scanf("%d", &newSize);
+
+    int *temp = (int *)realloc(inventory, newSize * sizeof(int));
+    if (temp == NULL) {
+        printf("Memory reallocation failed\n");
+        free(inventory); // Free original memory
+        return 1;
+    }
+    inventory = temp;
+
+    if (newSize > initialSize) {
+        for (int i = initialSize; i < newSize; i++) {
+            inventory[i] = i + 1; // Initialize new packets
+        }
+    }
+
+    printInventory(inventory, newSize);
+
+    int reducedSize;
+    printf("Enter reduced size for the inventory: ");
+    scanf("%d", &reducedSize);
+
+    temp = (int *)realloc(inventory, reducedSize * sizeof(int));
+    if (temp == NULL) {
+        printf("Memory reallocation failed\n");
+        free(inventory); // Free original memory
+        return 1;
+    }
+    inventory = temp;
+
+    printInventory(inventory, reducedSize);
+
+    free(inventory);
+
+    return 0;
+}
