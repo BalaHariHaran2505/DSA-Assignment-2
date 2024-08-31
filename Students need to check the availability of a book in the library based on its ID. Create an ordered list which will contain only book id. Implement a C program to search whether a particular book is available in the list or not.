@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct {
+    int bookID;
+} Book;
+
+Book* createOrderedList(int n) {
+    Book* list = (Book*)malloc(n * sizeof(Book));
+    if (list == NULL) {
+        printf("Memory allocation failed.\n");
+        exit(1);
+    }
+    for (int i = 0; i < n; i++) {
+        printf("Enter book ID %d: ", i + 1);
+        scanf("%d", &list[i].bookID);
+    }
+    return list;
+}
+int binarySearch(Book* list, int n, int targetID) {
+    int left = 0, right = n - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (list[mid].bookID == targetID) {
+            return mid; // Book found
+        } else if (list[mid].bookID < targetID) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return -1; 
+}
+
+int main() {
+    int n, targetID;
+
+    printf("Enter the number of books: ");
+    scanf("%d", &n);
+
+    Book* bookList = createOrderedList(n);
+
+    printf("Enter the book ID to search for: ");
+    scanf("%d", &targetID);
+
+    int result = binarySearch(bookList, n, targetID);
+
+    if (result != -1) {
+        printf("Book with ID %d is available.\n", targetID);
+    } else {
+        printf("Book with ID %d is not available.\n", targetID);
+    }
+
+    free(bookList);
+    return 0;
+}
