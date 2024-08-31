@@ -1,0 +1,19 @@
+#include <stdio.h>
+#define NUM_TREASURES 5
+typedef struct {
+    float weight; 
+} Treasure;
+int main() {
+    Treasure treasures[NUM_TREASURES];
+    float totalWeight = 0.0;
+    printf("Enter the weights of %d treasures (as integer values):\n", NUM_TREASURES);
+    for (int i = 0; i < NUM_TREASURES; i++) {
+        printf("Weight of treasure %d: ", i + 1);
+        scanf("%f", &treasures[i].weight);
+    }
+    for (int i = 0; i < NUM_TREASURES; i++) {
+        totalWeight += treasures[i].weight;
+    }
+    printf("Total weight of collected treasures: %.2f\n",totalWeight);
+    return 0;
+}
